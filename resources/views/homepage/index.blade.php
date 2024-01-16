@@ -1,9 +1,9 @@
-<!-- resources/views/categories/index.blade.php -->
+<!-- resources/views/home.blade.php -->
 @extends('layouts.app')
 
 @section('content')
-    <h2>Categories</h2>
-    <a href="{{ route('categories.create') }}" class="btn btn-success">Add Category</a>
+    <h2>News Articles</h2>
+    <a href="{{ route('news.create') }}" class="btn btn-success">Add News Article</a>
 
     @if(session('success'))
         <div class="alert alert-success mt-3">{{ session('success') }}</div>
@@ -12,19 +12,21 @@
     <table class="table mt-3">
         <thead>
             <tr>
-                <th>ID</th>
-                <th>Name</th>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Publication Date</th>
                 <th>Action</th>
             </tr>
         </thead>
         <tbody>
-            @foreach($categories as $category)
+            @foreach($news as $article)
                 <tr>
-                    <td>{{ $category->id }}</td>
-                    <td>{{ $category->name }}</td>
+                    <td>{{ $article->title }}</td>
+                    <td>{{ $article->description }}</td>
+                    <td>{{ $article->publication_date }}</td>
                     <td>
-                        <a href="{{ route('categories.edit', $category->id) }}" class="btn btn-primary">Edit</a>
-                        <form action="{{ route('categories.destroy', $category->id) }}" method="POST" style="display:inline;">
+                        <a href="{{ route('news.edit', $article->id) }}" class="btn btn-primary">Edit</a>
+                        <form action="{{ route('news.destroy', $article->id) }}" method="POST" style="display:inline;">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure?')">Delete</button>
